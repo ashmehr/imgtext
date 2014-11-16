@@ -24,10 +24,5 @@ def ocr (imgpath):
 		return 'OCR failed:' + str(e)
 
 	return ocrdata
-	
-	
-
-
-print ocr("test.png")
 
 
