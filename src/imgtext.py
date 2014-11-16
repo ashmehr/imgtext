@@ -1,4 +1,5 @@
 # placeholder for comments/info
+# not finding created files
 
 # Function to start OCR subprocess and return recognized text
 import os
