@@ -7,23 +7,28 @@ import subprocess
 
 def ocr (imgpath):
 	tempout = tempfile.NamedTemporaryFile()
+	ocrdata = ''
 
 	try:
-		rcode = subprocess.call(["tesseract", imgpath, tempout])
-		print rcode 
+		tessproc = subprocess.Popen(['tesseract', imgpath, tempout.name], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		tessproc.communicate
 
-		if rcode != 0:
-			raise Exception
-	except:
-		print "OCR failed"
 
-	with open(tempout.name + ".txt", "r") as text:
-		ocrdata = text.read()
+		with open(tempout.name + '.txt', 'r') as outfile:
+			ocrdata = outfile.read()
 
-	os.remove(tempout.name + ".txt")
-	os.remove(tempout.name)
+		os.remove(tempout.name + '.txt')
+		os.remove(tempout.name)
+
+		
+	except Exception as e:
+		return 'OCR failed:' + str(e)
 
 	return ocrdata
+	
+	
 
+
+print ocr("test.png")
 
 
