@@ -6,22 +6,18 @@ import os
 import tempfile
 import subprocess
 
-tempfile.tempdir = '../temp'
-
 def ocr (imgpath):
-	tempout = tempfile.NamedTemporaryFile(delete = False)
 	ocrdata = ''
 
 	try:
-		tessproc = subprocess.Popen(['tesseract', imgpath, tempout.name], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-		tessproc.communicate
+		tessproc = subprocess.Popen(['tesseract', imgpath, '../temp/octemp'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		tessproc.communicate()
 
 
-		with open(tempout.name + '.txt', 'r') as outfile:
+		with open('../temp/octemp.txt', 'r') as outfile:
 			ocrdata = outfile.read()
 
-		os.remove(tempout.name + '.txt')
-		os.remove(tempout.name)
+		os.remove('../temp/octemp.txt')
 
 		
 	except Exception as e:
