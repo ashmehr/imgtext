@@ -5,8 +5,10 @@ import os
 import tempfile
 import subprocess
 
+tempfile.tempdir = '../temp'
+
 def ocr (imgpath):
-	tempout = tempfile.NamedTemporaryFile()
+	tempout = tempfile.NamedTemporaryFile(delete = False)
 	ocrdata = ''
 
 	try:
