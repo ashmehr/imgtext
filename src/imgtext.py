@@ -2,7 +2,6 @@
 # not finding created files
 
 # Function to start OCR subprocess and return recognized text
-from PyPDF2 import PdfFileWriter
 import os
 import sys
 import tempfile
