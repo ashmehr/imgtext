@@ -2,7 +2,6 @@
 # not finding created files
 
 # Function to start OCR subprocess and return recognized text
-from PyPDF2 import PdfFileWriter
 import os
 import sys
 import tempfile
@@ -10,16 +9,16 @@ import subprocess
 
 def ocr (imgpath):
 	ocrdata = ''
+	tempout = tempfile.NamedTemporaryFile()
 
 	try:
-		tessproc = subprocess.Popen(['tesseract', imgpath, '../temp/octemp'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		tessproc = subprocess.Popen(['tesseract', imgpath, tempout.name], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 		tessproc.communicate()
 
-
-		with open('../temp/octemp.txt', 'r') as outfile:
+		with open (tempout.name + '.txt', 'r') as outfile:
 			ocrdata = outfile.read()
 			outfile.close()
-		os.remove('../temp/octemp.txt')
+		tempout.close()
 
 		
 	except Exception as e:
@@ -81,6 +80,7 @@ if __name__ == '__main__':
 				sys.exit()
 			else:
 				print 'Invalid option\n'
+
 
 
 
